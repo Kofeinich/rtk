@@ -1,5 +1,5 @@
 # Getting Started with Create React App
 
-see here 
+See here 
 
-"homepage": "https://kofeinich.github.io/rtk/",
+![homepage] (https://kofeinich.github.io/rtk/)
