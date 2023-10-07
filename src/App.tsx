@@ -7,8 +7,8 @@ export const App: FC = () => {
     return (
         <Router>
             <Routes>
-                <Route path="/:id" element={<Detail />} />
-                <Route path="/" element={<Home/>}/>
+                <Route path="rtk/:id" element={<Detail />} />
+                <Route path="/rtk" element={<Home/>}/>
             </Routes>
         </Router>
     );

@@ -62,7 +62,7 @@ export const Card: FC<CardProps> = ({post}) => {
                     <>
                         <CardInfoWrap>{post.body}</CardInfoWrap>
                         <CardInfo>
-                            <Link to={`/${post.id}`}>
+                            <Link to={`/rtk/${post.id}`}>
                                 <CardButton>Просмотр</CardButton>
                             </Link>
                         </CardInfo>
@@ -71,7 +71,7 @@ export const Card: FC<CardProps> = ({post}) => {
                     <>
                         <CardInfo>{post.body}</CardInfo>
                         <CardInfo>
-                            <Link to={`/`}>
+                            <Link to={`/rtk`}>
                                 <CardButton>Назад</CardButton>
                             </Link>
                         </CardInfo>
