@@ -29,8 +29,7 @@ export const Home: FC = () => {
     const {data, isLoading, isFetching} = useGetPostsQuery([pageSize, pageCount]);
 
     const scrollHandler = (e: any) => {
-        console.log(e)
-        if (e.scrollOffset > (allPosts.length / 5 * 600) && !isFetching && allPosts.length > 0) {
+        if (e.scrollOffset > (allPosts.length * 220 - 820) && !isFetching && allPosts.length > 0) {
             setPageCount((prevState) => prevState + 1);
         }
     };
@@ -56,9 +55,10 @@ export const Home: FC = () => {
                     ) : (
                         <>
                             <HomeTitle>Welcome</HomeTitle>
+                            <></>
                                 <List
                                     itemCount={allPosts.length}
-                                    height={window.innerHeight - 150}
+                                    height={700}
                                     itemSize={220}
                                     itemData={allPosts}
                                     width={window.innerWidth}
