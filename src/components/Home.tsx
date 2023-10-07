@@ -1,25 +1,9 @@
 import React, {FC, useEffect, useState} from 'react';
-import styled from 'styled-components';
 import {useGetPostsQuery} from "../api/postSlice";
 import {PostCard} from "../types/posts";
 import {FixedSizeList as List} from 'react-window';
 import {Card} from "../ui/Card";
-
-
-const HomeWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  font-size: 2rem;
-  flex-direction: column;
-  background-color: white;
-`;
-
-const HomeTitle = styled.h1`
-  color: #74b2b2;
-  font-size: 3rem;
-  text-align: center;
-`;
-
+import {LayoutTitle, LayoutWrapper} from "../styles/layout";
 
 
 export const Home: FC = () => {
@@ -44,7 +28,7 @@ export const Home: FC = () => {
     }, [data]);
 
     return (
-        <HomeWrapper>
+        <LayoutWrapper>
             {isLoading
                 ? (
                     <>Loading...</>
@@ -54,7 +38,7 @@ export const Home: FC = () => {
                         <>No posts :(</>
                     ) : (
                         <>
-                            <HomeTitle>Welcome</HomeTitle>
+                            <LayoutTitle>Welcome</LayoutTitle>
                             <></>
                                 <List
                                     itemCount={allPosts.length}
@@ -75,6 +59,6 @@ export const Home: FC = () => {
                     }
                 </>
             }
-        </HomeWrapper>
+        </LayoutWrapper>
     );
 };
