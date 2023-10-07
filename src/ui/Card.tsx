@@ -4,15 +4,21 @@ import {PostCard} from "../types/posts";
 
 const CardWrapper = styled.div`
   display: flex;
-  justify-content: left;
+  justify-content: center;
   font-size: 2rem;
   flex-direction: column;
-  margin-bottom: 15px;
   border: 1px solid aqua;
   border-radius: 20px;
   background: coral;
   width: 300px;
 `;
+
+const CardLtWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
 
 const CardInfo = styled.p`
   margin: 10px;
@@ -25,9 +31,12 @@ type CardProps = {
 
 export const Card: FC<CardProps> = ({post}) => {
     return (
-        <CardWrapper>
-            <CardInfo>{post.title}</CardInfo>
-            <CardInfo>{post.body}</CardInfo>
-        </CardWrapper>
+        <CardLtWrapper>
+            <CardWrapper>
+                <CardInfo>{post.id}</CardInfo>
+                <CardInfo>{post.title}</CardInfo>
+                <CardInfo>{post.body}</CardInfo>
+            </CardWrapper>
+        </CardLtWrapper>
     );
 };

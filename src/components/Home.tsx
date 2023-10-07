@@ -1,14 +1,15 @@
 import React, {FC, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {useGetPostsQuery} from "../api/postSlice";
-import {ListOfCards} from "../ui/ListOfCards";
+import {PostCard} from "../types/posts";
+import {FixedSizeList as List} from 'react-window';
+import {Card} from "../ui/Card";
+
 
 const HomeWrapper = styled.div`
   display: flex;
   justify-content: center;
   font-size: 2rem;
-  min-width: 100vw;
-  min-height: 100vh;
   flex-direction: column;
   background-color: white;
 `;
@@ -20,22 +21,28 @@ const HomeTitle = styled.h1`
 `;
 
 
+
 export const Home: FC = () => {
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(5);
     const [pageCount, setPageCount] = useState(1);
-    const {data: data, isLoading, isFetching} = useGetPostsQuery([pageSize, pageCount]);
+    const [allPosts, setAllPosts] = useState<PostCard[]>([]);
+    const {data, isLoading, isFetching} = useGetPostsQuery([pageSize, pageCount]);
+
+    const scrollHandler = (e: any) => {
+        console.log(e)
+        if (e.scrollOffset > (allPosts.length / 5 * 600) && !isFetching && allPosts.length > 0) {
+            setPageCount((prevState) => prevState + 1);
+        }
+    };
 
     useEffect(() => {
-        console.log(data)
-        document.addEventListener('scroll', scrollHandler)
-        return  () =>  {
-            document.removeEventListener('scroll', scrollHandler)
+        if (data) {
+            setAllPosts((prevPosts) => [
+                ...prevPosts,
+                ...data
+            ]);
         }
     }, [data]);
-
-    const scrollHandler = () => {
-        console.log('scroll')
-    }
 
     return (
         <HomeWrapper>
@@ -49,7 +56,20 @@ export const Home: FC = () => {
                     ) : (
                         <>
                             <HomeTitle>Welcome</HomeTitle>
-                            <ListOfCards list={data} ></ListOfCards>
+                                <List
+                                    itemCount={allPosts.length}
+                                    height={window.innerHeight - 150}
+                                    itemSize={220}
+                                    itemData={allPosts}
+                                    width={window.innerWidth}
+                                    onScroll={scrollHandler}
+                                >
+                                    {({index, style}) => (
+                                        <div style={style}>
+                                            <Card key={allPosts[index].id} post={allPosts[index]}/>
+                                        </div>
+                                    )}
+                                </List>
                         </>
                     )
                     }
